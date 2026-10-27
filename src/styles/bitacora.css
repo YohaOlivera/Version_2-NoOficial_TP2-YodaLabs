@@ -1,0 +1,334 @@
+/* ESTILOS ESPECÍFICOS DE LA BITÁCORA */
+
+.contenedor-bitacora {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 7rem 2rem 4rem 2rem;
+    width: 100%;
+}
+
+/* Barra de navegación secundaria */
+.barra-navegacion-interna {
+    margin-bottom: 2rem;
+}
+
+.btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--verde-yoda);
+    text-decoration: none;
+    font-family: var(--fuente-titulos);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--verde-fuerza);
+    border-radius: 8px;
+    background-color: rgba(9, 13, 20, 0.7);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+    background-color: var(--verde-yoda);
+    color: var(--bg-espacio);
+    transform: translateX(-4px);
+    box-shadow: 0 0 15px rgba(88, 201, 139, 0.4);
+}
+
+/* Cabecera de la sección */
+.bitacora-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.subtitulo-seccion {
+    font-family: var(--fuente-especial);
+    color: var(--verde-yoda);
+    font-size: 0.95rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+}
+
+.titulo-bitacora {
+    font-family: var(--fuente-especial);
+    font-size: 2.8rem;
+    color: var(--verde-yoda);
+    letter-spacing: 3px;
+    text-shadow: 0 4px 15px rgba(88, 201, 139, 0.3);
+    margin-bottom: 1rem;
+}
+
+.descripcion-bitacora {
+    font-family: var(--fuente-texto);
+    color: var(--texto-claro);
+    font-size: 1.15rem;
+    max-width: 750px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Tarjetas de Métricas / Resumen */
+.resumen-metas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+}
+
+.tarjeta-meta {
+    background-color: rgba(33, 67, 88, 0.5);
+    border: 1px solid var(--verde-fuerza);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta-meta:hover {
+    transform: translateY(-4px);
+    border-color: var(--verde-yoda);
+    box-shadow: 0 8px 20px rgba(88, 201, 139, 0.2);
+}
+
+.meta-numero {
+    font-family: var(--fuente-especial);
+    font-size: 2.2rem;
+    color: var(--verde-yoda);
+    margin-bottom: 0.25rem;
+}
+
+.meta-etiqueta {
+    font-family: var(--fuente-roles);
+    font-size: 0.95rem;
+    color: #a0aec0;
+}
+
+/* Contenedor y Tabla */
+.tabla-bitacora-contenedor {
+    background-color: rgba(33, 67, 88, 0.45);
+    border: 2px solid var(--verde-fuerza);
+    border-radius: 14px;
+    padding: 1.5rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    margin-bottom: 3.5rem;
+    overflow-x: auto;
+}
+
+.tabla-bitacora {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: var(--fuente-texto);
+    color: var(--texto-claro);
+    min-width: 700px;
+}
+
+.tabla-bitacora th {
+    background-color: rgba(9, 13, 20, 0.85);
+    color: var(--verde-yoda);
+    font-family: var(--fuente-nav);
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-align: left;
+    padding: 1.1rem 1.2rem;
+    border-bottom: 2px solid var(--verde-fuerza);
+}
+
+.tabla-bitacora th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.tabla-bitacora th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.tabla-bitacora td {
+    padding: 1.2rem;
+    border-bottom: 1px solid rgba(65, 133, 118, 0.25);
+    vertical-align: top;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.tabla-bitacora tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-bitacora tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.tabla-bitacora tbody tr:hover {
+    background-color: rgba(88, 201, 139, 0.08);
+}
+
+/* Insignias y destacados */
+.badge-fase {
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-family: var(--fuente-nav);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.5px;
+    background-color: rgba(88, 201, 139, 0.15);
+    color: var(--verde-yoda);
+    border: 1px solid var(--verde-yoda);
+}
+
+.badge-fase.diseno {
+    background-color: rgba(178, 102, 255, 0.15);
+    color: #b266ff;
+    border-color: #b266ff;
+}
+
+.badge-fase.codigo {
+    background-color: rgba(0, 123, 255, 0.15);
+    color: #4da3ff;
+    border-color: #4da3ff;
+}
+
+.badge-fase.multimedia {
+    background-color: rgba(255, 153, 0, 0.15);
+    color: #ff9900;
+    border-color: #ff9900;
+}
+
+.badge-fase.entrega {
+    background-color: rgba(255, 102, 178, 0.15);
+    color: #ff66b2;
+    border-color: #ff66b2;
+}
+
+.celda-fecha {
+    font-family: var(--fuente-nav);
+    color: var(--texto-claro);
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.celda-avance strong {
+    display: block;
+    color: var(--texto-claro);
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+    font-family: var(--fuente-titulos);
+}
+
+.celda-avance p {
+    color: #cbd5e1;
+    font-size: 0.92rem;
+}
+
+.solucion-texto {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--verde-yoda);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.celda-responsables {
+    font-family: var(--fuente-roles);
+    font-weight: 500;
+    color: var(--verde-yoda);
+    white-space: nowrap;
+}
+
+/* Sección de Síntesis y Metodología */
+.seccion-metodologia {
+    margin-top: 2rem;
+}
+
+.subtitulo-bloque {
+    font-family: var(--fuente-especial);
+    color: var(--verde-yoda);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.grilla-metodologia {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.tarjeta-metodologia {
+    background-color: rgba(33, 67, 88, 0.5);
+    border: 1px solid var(--verde-fuerza);
+    border-radius: 12px;
+    padding: 1.8rem;
+    backdrop-filter: blur(6px);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.tarjeta-metodologia:hover {
+    transform: translateY(-4px);
+    border-color: var(--verde-yoda);
+}
+
+.tarjeta-metodologia h3 {
+    font-family: var(--fuente-titulos);
+    color: var(--verde-yoda);
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--verde-fuerza);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.tarjeta-metodologia p {
+    font-family: var(--fuente-texto);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+/* Responsive Breakpoints obligatorios */
+@media (min-width: 400px) {
+    .contenedor-bitacora {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .contenedor-bitacora {
+        padding-top: 6rem;
+    }
+
+    .titulo-bitacora {
+        font-size: 2.2rem;
+    }
+
+    .tabla-bitacora-contenedor {
+        padding: 1rem;
+    }
+
+    .tabla-bitacora th, .tabla-bitacora td {
+        padding: 0.85rem 0.75rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .resumen-metas {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .contenedor-bitacora {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+

@@ -4,14 +4,14 @@ import { staffData } from '../data/staff';
 
 export function Sidebar() {
   const [isMobileHidden, setIsMobileHidden] = useState(false);
-  // Inicializa en true para que siempre esté abierto en escritorio
-  const [showPerfiles, setShowPerfiles] = useState(true);
+  const [showPerfiles, setShowPerfiles] = useState(window.innerWidth > 900);
+
   const location = useLocation();
   const timerRef = useRef(null);
 
-  const resetTimer = () => {
+  // Iniciar o reiniciar el temporizador para ocultar (solo en móvil)
+  const startHideTimer = () => {
     if (window.innerWidth <= 900) {
-      setIsMobileHidden(false);
       clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => {
         setIsMobileHidden(true);
@@ -21,18 +21,27 @@ export function Sidebar() {
   };
 
   useEffect(() => {
-    resetTimer();
-    window.addEventListener('mousemove', resetTimer);
-    window.addEventListener('touchstart', resetTimer);
-    window.addEventListener('resize', resetTimer);
+    // Si la barra está visible, arrancamos la cuenta regresiva
+    if (!isMobileHidden) {
+      startHideTimer();
+    }
     
+    // Solo necesitamos vigilar si la pantalla cambia a modo escritorio o móvil
+    const handleResize = () => {
+      if (window.innerWidth > 900) {
+        setIsMobileHidden(false);
+        setShowPerfiles(true);
+      } else if (!isMobileHidden) {
+        startHideTimer();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
     return () => {
       clearTimeout(timerRef.current);
-      window.removeEventListener('mousemove', resetTimer);
-      window.removeEventListener('touchstart', resetTimer);
-      window.removeEventListener('resize', resetTimer);
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [isMobileHidden]); // Se vuelve a ejecutar cada vez que cambia el estado visible/oculto
 
   return (
     <>
@@ -44,10 +53,11 @@ export function Sidebar() {
 
       <aside 
         className={`sidebar-compartida ${isMobileHidden ? 'oculta' : ''}`}
-        onMouseEnter={resetTimer}
-        onClick={resetTimer}
+        // Al tocar los botones o mover el mouse por encima de la barra, el tiempo se reinicia
+        onMouseEnter={startHideTimer}
+        onClick={startHideTimer}
       >
-        {/* SECCIÓN 1: IMAGOTIPO */}
+        {/* SECCIÓN 1: LOGO */}
         <div className="sidebar-seccion">
           <NavLink to="/" className="logo-contenedor">
             <img src="/img/logo4.png" alt="Logo Yoda Labs" style={{ maxWidth: '100%', height: 'auto', maxHeight: '40px' }} />
@@ -86,10 +96,8 @@ export function Sidebar() {
 
         <div className="sidebar-divisor"></div>
 
-{/* SECCIÓN 3: PERFILES Y GITHUB */}
+        {/* SECCIÓN 3: PERFILES Y GITHUB */}
         <div className="sidebar-seccion">
-          
-          {/* Contenedor relativo para anclar el submenú en móvil */}
           <div style={{ position: 'relative' }}>
             <div 
               className={`nav-link ${location.pathname.includes('/perfil/') ? 'activo' : ''}`} 

@@ -1,0 +1,115 @@
+/* IMPORTACIÓN DE FUENTES GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;600;700&family=Syne:wght@400;600&family=Zen+Dots&display=swap');
+
+/* VARIABLES GLOBALES */
+:root {
+    /* Paleta de Colores */
+    --bg-espacio: #070C12;
+    --verde-yoda: #39FF7A;      
+    --verde-fuerza: #1DB954;     
+    --verde-sutil: #0F7A3A;    
+    --azul-labs: #0D2233;
+    --texto-claro: #E2E8F0;
+    
+    /* Tipografías */
+    --fuente-titulos: 'Space Grotesk', sans-serif;
+    --fuente-texto: 'Inter', sans-serif;
+    --fuente-nav: 'Orbitron', sans-serif;
+    --fuente-nombres: 'Syne', sans-serif;
+    --fuente-roles: 'Plus Jakarta Sans', sans-serif;
+    --fuente-especial: 'Zen Dots', sans-serif;
+}
+
+/* RESET Y BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* Ocultar barra de scroll en navegadores WebKit */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+body {
+    background-color: var(--bg-espacio);
+    background-image: 
+        radial-gradient(circle at 50% 40%, rgba(13, 34, 51, 0.5) 0%, rgba(7, 12, 18, 0.8) 60%, rgba(7, 12, 18, 0.97) 85%),
+        url('../public/img/fondo3.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: var(--texto-claro);
+    font-family: var(--fuente-texto);
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: url('../public/img/sable-de-luz.png') 0 0, auto !important;
+}
+
+/* Cursores personalizados para interactuables */
+a, button, select, input,
+.menu-toggle, .tarjeta-flip, .carousel-viewport, 
+.carousel-viewport:active, .btn-perfil, 
+.btn-tripulacion, .indicador-tripulacion {
+    cursor: url('../public/img/sable-de-luz.png') 0 0, pointer !important;
+}
+
+/* Encabezados base */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--fuente-titulos);
+    color: var(--texto-claro);
+}
+
+/* ANIMACIONES GLOBALES */
+@keyframes palpitar {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-14px); }
+}
+
+@keyframes flotarSuave {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1.5deg); }
+}
+
+/* COMPONENTES GLOBALES */
+/* Footer */
+.footer-sitio {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: rgba(9, 13, 20, 0.9);
+    border-top: 1px solid var(--verde-fuerza);
+    color: #a0aec0;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 10;
+    font-family: var(--fuente-nav);
+    
+    /* Efecto de línea */
+    border-top: 20px solid;
+    border-image: linear-gradient(90deg, transparent, rgba(57, 255, 122, 0.4), transparent) 1;
+}
+
+/* MEDIA QUERIES GLOBALES */
+@media (max-width: 900px) {
+    html {
+        scroll-snap-type: none; 
+    }
+}

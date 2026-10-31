@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Sidebar } from './components/Sidebar';
+import {Footer} from './components/Footer';
 import { Home } from './pages/Home';
 import { Perfil } from './pages/Perfil';
 import { Bitacora } from './pages/Bitacora'; 
@@ -25,6 +26,9 @@ function App() {
             <Route path="/api" element={<Api />} /> 
             <Route path="/arbol" element={<Arbol />} />
           </Routes>
+
+          <Footer />
+          
         </main>
       </div>
     </Router>

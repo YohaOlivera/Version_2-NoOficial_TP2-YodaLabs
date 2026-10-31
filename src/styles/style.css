@@ -211,7 +211,8 @@
     max-width: 500px;
     width: 100%;
     filter: drop-shadow(0 0 15px rgba(57,255,122,0.3));
-    margin-top: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
 }
 
 .hero-titulo {
@@ -794,7 +795,7 @@
     }
 
     .main-integrantes {
-        padding-bottom: 8rem;
+        padding-bottom: 5rem;
     }
 
     .btn-hero {

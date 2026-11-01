@@ -119,7 +119,7 @@ export function Arbol() {
           backdropFilter: 'blur(8px)',
           overflowX: 'auto'
         }}>
-          {/* Nodo Raíz configurado para estar abierto por defecto */}
+          {/* Nodo Raíz */}
           <NodoArbol nombre={estructuraApp.nombre} hijos={estructuraApp.hijos} defaultOpen={true} />
         </div>
       </div>

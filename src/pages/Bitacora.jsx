@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { SpaceBackground } from '../components/SpaceBackground';
+import '../styles/bitacora.css';
 
 // Importación Bitacora JSON
 import registrosBitacora from '../data/bitacora.json'; 

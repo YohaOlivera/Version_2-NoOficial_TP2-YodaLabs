@@ -264,8 +264,8 @@
 }
 
 .btn-primario:hover {
-    background-color: #fff;
-    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+    background-color: var(--verde-yoda);
+    box-shadow: 0 0 20px rgba(57, 255, 122,0.6);
 }
 
 .btn-secundario {

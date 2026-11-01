@@ -1,0 +1,300 @@
+/* ESTILOS DE RECURSOS */
+
+.contenedor-recursos {
+    min-height: 100vh;
+    padding: 8rem 2rem 4rem 2rem;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.recursos-layer {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.recursos-layer p{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.titulo-recursos {
+    font-size: 2.2rem;
+    margin-bottom: 6rem !important;
+}
+
+.descripcion-recursos {
+    text-align: center;
+    font-family: var(--fuente-texto);
+    color: var(--texto-claro);
+    font-size: 1.15rem;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* CONTROLES Y FILTROS */
+.filtros-recursos {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background-color: rgba(9, 13, 20, 0.8);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--verde-fuerza);
+    margin-bottom: 2rem;
+}
+
+.input-busqueda {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.8rem;
+    border-radius: 6px;
+    background-color: rgba(9, 13, 20, 0.95);
+    color: #fff;
+    border: 1px solid #4a5568;
+    outline: none;
+    font-family: var(--fuente-roles);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-busqueda:focus {
+    border-color: var(--verde-yoda);
+    box-shadow: 0 0 10px rgba(57, 255, 122, 0.2);
+}
+
+/* Menú Desplegable */
+.custom-select-container {
+    position: relative;
+    min-width: 220px;
+    font-family: var(--fuente-roles);
+}
+
+.custom-select-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background-color: rgba(9, 13, 20, 0.95);
+    color: #fff;
+    border: 1px solid #4a5568;
+    border-radius: 6px;
+    cursor:  url(../../public/img/sable-de-luz.png);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+}
+
+.custom-select-trigger:hover,
+.custom-select-trigger.abierto {
+    border-color: var(--verde-yoda);
+    box-shadow: 0 0 10px rgba(57, 255, 122, 0.2);
+}
+
+.custom-arrow {
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2339FF7A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.3s ease;
+}
+
+.custom-select-trigger.abierto .custom-arrow {
+    transform: rotate(180deg);
+}
+
+.custom-select-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background-color: #090d14; /* Fondo oscuro */
+    border: 1px solid var(--verde-fuerza);
+    border-radius: 6px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    z-index: 100;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.custom-select-options li {
+    padding: 0.8rem 1rem;
+    color: #fff;
+    cursor:  url(../../public/img/sable-de-luz.png);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* AQUÍ ESTÁ LA MAGIA: El hover con tu color verde Yoda */
+.custom-select-options li:hover {
+    background-color: rgba(57, 255, 122, 0.15); /* Fondo verde translúcido */
+    color: var(--verde-yoda); /* Texto verde brillante */
+}
+
+.custom-select-options li.seleccionado {
+    background-color: rgba(57, 255, 122, 0.25);
+    color: var(--verde-yoda);
+    font-weight: bold;
+    border-left: 3px solid var(--verde-yoda);
+}
+
+.btn-limpiar {
+    padding: 0.8rem 1.5rem;
+    background-color: transparent;
+    color: var(--verde-yoda);
+    border: 1px solid var(--verde-yoda);
+    border-radius: 6px;
+    cursor:  url(../../public/img/sable-de-luz.png);
+    font-family: var(--fuente-nav);
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.btn-limpiar:hover {
+    background-color: rgba(57, 255, 122, 0.15);
+    box-shadow: 0 0 15px rgba(57, 255, 122, 0.3);
+}
+
+/* ESTADOS VACÍOS */
+.alerta-vacia {
+    text-align: center;
+    padding: 3rem;
+    background-color: rgba(255, 0, 0, 0.05);
+    border-radius: 12px;
+    border: 1px solid #ff4444;
+    margin-bottom: 2rem;
+}
+
+.alerta-vacia h3 {
+    color: #ff4444;
+    margin-bottom: 1rem;
+    font-family: var(--fuente-titulos);
+}
+
+.alerta-vacia p {
+    color: #e2e8f0;
+}
+
+/* GRILLA DE RECURSOS */
+.grilla-recursos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.tarjeta-recurso {
+    background-color: rgba(13, 34, 51, 0.6);
+    border: 1px solid var(--verde-sutil);
+    border-radius: 10px;
+    padding: 1.5rem;
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor:  url(../../public/img/sable-de-luz.png);
+}
+
+.tarjeta-recurso:hover {
+    transform: translateY(-5px);
+    border-color: var(--verde-yoda);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(57, 255, 122, 0.15);
+}
+
+.tarjeta-recurso-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.recurso-categoria {
+    color: var(--verde-yoda);
+    font-size: 0.8rem;
+    font-family: var(--fuente-nav);
+    letter-spacing: 2px;
+}
+
+.recurso-nivel {
+    background-color: rgba(57, 255, 122, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: #1DB954;
+    border: 1px solid rgba(57, 255, 122, 0.3);
+}
+
+.recurso-titulo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.recurso-icono {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    filter: drop-shadow(0px 0px 5px rgba(255,255,255,0.2));
+}
+
+/* Invertir logos de Express y GitHub */
+.icono-invertido {
+    filter: invert(1) brightness(2) drop-shadow(0px 0px 5px rgba(255,255,255,0.4));
+}
+
+.recurso-nombre {
+    font-size: 1.4rem;
+    margin: 0;
+    font-family: var(--fuente-titulos);
+    color: var(--texto-claro);
+}
+
+.recurso-descripcion {
+    color: #a0aec0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* MEDIA QUERIES */
+
+/* Tablets (hasta 900px) */
+@media (max-width: 900px) {
+    .contenedor-recursos {
+        padding-top: 6rem;
+    }
+
+    .recursos-layer p{
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .filtros-recursos {
+        flex-direction: column;
+    }
+    
+    .select-categoria {
+        width: 100%;
+    }
+}
+
+/* Móviles pequeños (hasta 400px) */
+@media (max-width: 400px) {
+    .contenedor-recursos {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .titulo-recursos {
+        margin-bottom: 6rem !important;
+    }
+
+    .recursos-layer p{
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn-limpiar {
+        width: 100%;
+    }
+}

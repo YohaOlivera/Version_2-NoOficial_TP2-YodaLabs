@@ -1,129 +1,259 @@
 import { useState, useEffect } from 'react';
 import { SpaceBackground } from '../components/SpaceBackground';
+import '../styles/api.css';
 
 export function Api() {
   const [personajes, setPersonajes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  
+  // Personaje al Azar
+  const [personajeAzar, setPersonajeAzar] = useState(null);
+  const [buscando, setBuscando] = useState(false);
+  
+  // Mini-Juego de Memoria
+  const [cards, setCards] = useState([]);
+  const [flipped, setFlipped] = useState([]);
+  const [matched, setMatched] = useState([]);
+  const [score, setScore] = useState(0);
+  const [time, setTime] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [juegoIniciado, setJuegoIniciado] = useState(false); // Nuevo estado para iniciar el timer
 
-  // Función para consumir la API de Star Wars (SWAPI)
-  const fetchStarWarsData = async () => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      // Usamos un número aleatorio de página para que el botón "Actualizar" traiga datos distintos
-      const randomPage = Math.floor(Math.random() * 9) + 1; 
-      const response = await fetch(`https://swapi.dev/api/people/?page=${randomPage}`);
-      
-      if (!response.ok) {
-        throw new Error('Error al conectar con los archivos Jedi (API)');
-      }
-      
-      const data = await response.json();
-      setPersonajes(data.results.slice(0, 6)); // Tomamos solo 6 para que se vea bien en la grilla
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    fetch('https://akabab.github.io/starwars-api/api/all.json')
+      .then(res => res.json())
+      .then(data => {
+        const personajesValidos = data.filter(p => p.image).slice(0, 40);
+        setPersonajes(personajesValidos);
+        iniciarJuego(personajesValidos);
+      })
+      .catch(error => console.error("Error al cargar la API:", error));
+  }, []);
+
+  // Timer modificado: Solo arranca cuando 'juegoIniciado' es true (primer clic)
+  useEffect(() => {
+    let intervalo;
+    if (juegoIniciado && isPlaying && !gameOver) {
+      intervalo = setInterval(() => {
+        setTime(t => t + 1);
+      }, 1000);
+    }
+    return () => clearInterval(intervalo);
+  }, [juegoIniciado, isPlaying, gameOver]);
+
+  const obtenerPersonajeAzar = () => {
+    if (personajes.length > 0) {
+      setBuscando(true);
+      // Pequeño delay para dar feedback visual de búsqueda
+      setTimeout(() => {
+        const azar = personajes[Math.floor(Math.random() * personajes.length)];
+        setPersonajeAzar(azar);
+        setBuscando(false);
+      }, 400);
     }
   };
 
-  // Se ejecuta al montar el componente
-  useEffect(() => {
-    fetchStarWarsData();
-  }, []);
+  const iniciarJuego = (lista) => {
+    const pool = lista || personajes;
+    if (!pool || pool.length === 0) return;
+
+    const barajados = [...pool].sort(() => 0.5 - Math.random());
+    const seleccionados = barajados.slice(0, 6);
+    
+    const pares = [...seleccionados, ...seleccionados]
+      .map((p, index) => ({ ...p, idUnico: `${p.id}-${index}` }))
+      .sort(() => 0.5 - Math.random());
+    
+    setCards(pares);
+    setFlipped([]);
+    setMatched([]);
+    setScore(0);
+    setTime(0);
+    setIsPlaying(true);
+    setGameOver(false);
+    setJuegoIniciado(false); // Reseteamos el inicio del timer
+  };
+
+  const handleCardClick = (index) => {
+    if (flipped.length === 2 || flipped.includes(index) || matched.includes(cards[index].id)) return;
+    
+    // Iniciar timer en el primer clic
+    if (!juegoIniciado) setJuegoIniciado(true);
+    
+    const nuevosFlipped = [...flipped, index];
+    setFlipped(nuevosFlipped);
+    
+    if (nuevosFlipped.length === 2) {
+      const [primero, segundo] = nuevosFlipped;
+      
+      if (cards[primero].id === cards[segundo].id) {
+        setMatched(prev => [...prev, cards[primero].id]);
+        setScore(s => s + 5);
+        setFlipped([]);
+        
+        if (matched.length + 1 === 6) {
+          setGameOver(true);
+          setIsPlaying(false);
+        }
+      } else {
+        setScore(s => s - 2);
+        setTimeout(() => {
+          setFlipped([]);
+        }, 1000);
+      }
+    }
+  };
+
+  const formatearTiempo = (segundos) => {
+    const m = Math.floor(segundos / 60).toString().padStart(2, '0');
+    const s = (segundos % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
 
   return (
-    <main className="contenedor-principal" style={{ minHeight: '100vh', padding: '6rem 2rem 2rem 2rem' }}>
+    <main className="contenedor-api">
       <SpaceBackground />
       
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1000px', margin: '0 auto' }}>
-        <h1 className="titulo-staff" style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Base de Datos SWAPI</h1>
-        <p className="staff-descripcion" style={{ marginBottom: '2.5rem' }}>
-          Información en vivo consumida desde la API pública The Star Wars API.
-        </p>
+      <div className="api-layer">
+        
+        {/* --- SECCIÓN 1: TÍTULO Y DESCRIPCIÓN FUERA DEL RECUADRO --- */}
+        <section className="api-header-global">
+          <span className="etiqueta-mision">IDENTIFICACIÓN DE MISIÓN</span>
+          <h1 className="titulo-api-principal">API Pública</h1>
+          <p className="descripcion-api-principal">
+            Consumo de datos externos para popular los registros de la Orden. Esta sección 
+            utiliza datos reales obtenidos dinámicamente desde un repositorio público de Star Wars.
+          </p>
+          <a href="https://akabab.github.io/starwars-api/api/all.json" target="_blank" rel="noopener noreferrer" className="api-link-principal">
+            https://github.com/akabab/starwars-api
+          </a>
+        </section>
 
-        {/* Botón de Actualizar / Reintentar (Criterio 12 - Propone) */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <button 
-            onClick={fetchStarWarsData}
-            disabled={loading}
-            style={{
-              padding: '0.8rem 1.5rem',
-              backgroundColor: 'rgba(9, 13, 20, 0.8)',
-              color: 'var(--verde-yoda)',
-              border: '1px solid var(--verde-yoda)',
-              borderRadius: '8px',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              fontFamily: 'var(--fuente-nav)',
-              opacity: loading ? 0.6 : 1,
-              transition: 'all 0.3s ease'
-            }}
-          >
-            {loading ? 'Sincronizando...' : '↻ Actualizar Datos'}
-          </button>
-        </div>
+        {/* --- SECCIÓN 2: RECUADRO DE DOCUMENTACIÓN --- */}
+        <section className="api-info-box">
+          <h3>Decisión Técnica: ¿Por qué no SWAPI?</h3>
+          <p>
+            Aunque <em>SWAPI (The Star Wars API)</em> es el estándar más conocido, carece de un elemento visual crucial para las interfaces modernas: <strong>imágenes</strong>. 
+            Por esta razón, optamos por consumir el proyecto de código abierto alojado en <a href="https://github.com/akabab/starwars-api" target="_blank" rel="noopener noreferrer" className="link-inline">github.com/akabab/starwars-api</a>.
+          </p>
 
-        {/* Estado 1: CARGANDO */}
-        {loading && (
-          <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--verde-yoda)' }}>
-            <div className="card-status-dot" style={{ display: 'inline-block', width: '20px', height: '20px', marginBottom: '1rem' }}></div>
-            <h3 style={{ fontFamily: 'var(--fuente-nav)' }}>Estableciendo conexión con la Fuerza...</h3>
+          <h3 className="mt-4">Estructura del JSON</h3>
+          <p>La API devuelve un array de objetos detallados. Las propiedades clave que nuestra aplicación intercepta y renderiza son:</p>
+          <ul className="api-campos">
+            <li><strong>id:</strong> Identificador numérico único de la base de datos.</li>
+            <li><strong>name:</strong> Nombre oficial del personaje.</li>
+            <li><strong>image:</strong> URL directa al archivo fotográfico en alta resolución.</li>
+            <li><strong>species:</strong> Clasificación biológica.</li>
+            <li><strong>gender:</strong> Género del individuo.</li>
+            <li><strong>homeworld:</strong> Planeta de origen documentado.</li>
+            <li><strong>height:</strong> Altura registrada en metros.</li>
+          </ul>
+        </section>
+
+        <div className="linea-divisoria"></div>
+
+        {/* --- SECCIÓN 3: PERSONAJE AL AZAR --- */}
+        <section className="api-seccion-azar">
+          <div className="azar-header">
+            <h2>Holocron Aleatorio</h2>
+            <p>Accede a un expediente clasificado al azar desde la base de datos externa.</p>
+            <button className="btn-interactivo mt-2" onClick={obtenerPersonajeAzar} disabled={buscando}>
+              {buscando ? 'Buscando...' : 'Conocer personaje al azar'}
+            </button>
           </div>
-        )}
-
-        {/* Estado 2: ERROR */}
-        {error && !loading && (
-          <div style={{ textAlign: 'center', padding: '3rem', backgroundColor: 'rgba(255,0,0,0.1)', borderRadius: '12px', border: '1px solid #ff4444' }}>
-            <h3 style={{ color: '#ff4444', marginBottom: '1rem' }}>Fallo en la transmisión</h3>
-            <p style={{ color: '#e2e8f0' }}>{error}</p>
-          </div>
-        )}
-
-        {/* Estado 3: ÉXITO (Muestra de datos) */}
-        {!loading && !error && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-            {personajes.map((personaje, index) => (
-              <article key={index} style={{
-                background: 'linear-gradient(135deg, rgba(9, 13, 20, 0.9), rgba(5, 10, 18, 0.9))',
-                border: '1px solid var(--verde-fuerza)',
-                borderRadius: '10px',
-                padding: '1.5rem',
-                backdropFilter: 'blur(5px)',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center'
-              }}>
-                
-                {/* Avatar Holográfico generado con CSS */}
-                <div style={{
-                  width: '70px', height: '70px', borderRadius: '50%',
-                  backgroundColor: 'rgba(57, 255, 122, 0.05)',
-                  border: '2px solid var(--verde-yoda)',
-                  boxShadow: '0 0 15px rgba(57, 255, 122, 0.2), inset 0 0 10px rgba(57, 255, 122, 0.2)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '2rem', fontFamily: 'var(--fuente-especial)', color: 'var(--verde-yoda)',
-                  marginBottom: '1rem'
-                }}>
-                  {personaje.name.charAt(0)}
+          
+          <div className="azar-contenedor-tarjeta">
+            {!personajeAzar ? (
+              <div className="tarjeta-vacia">
+                <span className="icono-vacio">?</span>
+                <p>Esperando para conocer al personaje...</p>
+              </div>
+            ) : (
+              <article className="ficha-completa">
+                <div className="ficha-img-wrapper">
+                  <img src={personajeAzar.image} alt={personajeAzar.name} />
                 </div>
-
-                <h3 style={{ color: 'var(--texto-claro)', fontSize: '1.3rem', marginBottom: '1rem', borderBottom: '1px solid rgba(29, 185, 84, 0.3)', paddingBottom: '0.5rem', fontFamily: 'var(--fuente-especial)', width: '100%' }}>
-                  {personaje.name}
-                </h3>
-                
-                <ul style={{ listStyle: 'none', color: '#a0aec0', fontSize: '0.95rem', lineHeight: '1.8', width: '100%' }}>
-                  <li><strong style={{ color: 'var(--verde-yoda)' }}>Año nac.:</strong> {personaje.birth_year}</li>
-                  <li><strong style={{ color: 'var(--verde-yoda)' }}>Altura:</strong> {personaje.height} cm</li>
-                  <li><strong style={{ color: 'var(--verde-yoda)' }}>Peso:</strong> {personaje.mass} kg</li>
-                </ul>
+                <div className="ficha-datos">
+                  <span className="etiqueta-mision">PERSONAJE</span>
+                  <h3 className="ficha-nombre">{personajeAzar.name}</h3>
+                  
+                  <div className="ficha-grid">
+                    <div>
+                      <small>Especie</small>
+                      <p>{personajeAzar.species || 'Desconocida'}</p>
+                    </div>
+                    <div>
+                      <small>Planeta de origen</small>
+                      <p>{personajeAzar.homeworld || 'Desconocido'}</p>
+                    </div>
+                    <div>
+                      <small>Género</small>
+                      <p>{personajeAzar.gender || 'Desconocido'}</p>
+                    </div>
+                    <div>
+                      <small>Altura</small>
+                      <p>{personajeAzar.height ? `${personajeAzar.height} m` : 'Desconocida'}</p>
+                    </div>
+                  </div>
+                  
+                  <a href={personajeAzar.wiki} target="_blank" rel="noopener noreferrer" className="btn-ficha-completa">
+                    Consultar ficha completa
+                  </a>
+                </div>
               </article>
-            ))}
+            )}
           </div>
-        )}
+        </section>
+
+        <div className="linea-divisoria"></div>
+
+        {/* --- SECCIÓN 4: MINI JUEGO DE MEMORIA --- */}
+        <section className="api-seccion-juego">
+          <div className="juego-header">
+            <h2>Entrenamiento de Memoria Jedi</h2>
+            <p>Encuentra los pares, obtendrás 5 puntos por cada par encontrado pero si fallas, perderás 2 puntos. El tiempo iniciará al voltear la primera carta.</p>
+          </div>
+
+          <div className="juego-stats">
+            <div className="stat-box">⏳ Tiempo: <span>{formatearTiempo(time)}</span></div>
+            <div className="stat-box">🏆 Puntaje: <span>{score}</span></div>
+            <button className="btn-interactivo btn-outline" onClick={() => iniciarJuego(personajes)}>
+              Reiniciar Entrenamiento
+            </button>
+          </div>
+
+          {gameOver && (
+            <div className="juego-terminado">
+              <h3>¡Simulación Completada!</h3>
+              <p>Puntaje Final: <strong>{score}</strong></p>
+              <p>Tiempo: <strong>{formatearTiempo(time)}</strong></p>
+            </div>
+          )}
+
+          <div className="memoria-tablero">
+            {cards.map((card, index) => {
+              const estaVolteada = flipped.includes(index) || matched.includes(card.id);
+              
+              return (
+                <div 
+                  key={card.idUnico} 
+                  className={`memoria-carta ${estaVolteada ? 'volteada' : ''}`}
+                  onClick={() => handleCardClick(index)}
+                >
+                  <div className="memoria-inner">
+                    <div className="memoria-dorso">
+                      <span className="logo-carta">YL</span>
+                    </div>
+                    <div className="memoria-frente">
+                      <img src={card.image} alt={card.name} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
       </div>
     </main>
   );

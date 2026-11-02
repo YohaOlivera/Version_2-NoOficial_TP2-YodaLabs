@@ -46,10 +46,10 @@ export function Home() {
       <section className="seccion-descripcion seccion-completa" id="texto-desc">
         <div className="contenedor-descripcion revelable visible-scroll">
           <span className="etiqueta-mision">
-            IDENTIFICACIÓN // MISIÓN
+            IDENTIFICACIÓN DE MISIÓN
           </span>
           
-          <h2 className="titulo-descripcion">
+          <h2 className="titulo-staff">
             Sobre Nosotros
           </h2>
           
@@ -65,7 +65,12 @@ export function Home() {
       {/* STAFF CARRUSEL */}
       <main id="seccion-integrantes" className="main-integrantes seccion-completa">
         <div className="contenedor-staff revelable visible-scroll">
+          
           <div className="staff-encabezado">
+            <span className="etiqueta-mision">
+            TRIPULACIÓN DE YODA LABS
+            </span>
+
             <h2 className="titulo-staff">Staff</h2>
             <p className="staff-descripcion">Seleccioná un holocrón para conocer a cada integrante de la tripulación.</p>
           </div>

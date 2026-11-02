@@ -318,7 +318,7 @@
 }
 
 .etiqueta-mision {
-    color: var(--verde-yoda);
+    color: var(--verde-fuerza);
     letter-spacing: 4px;
     font-size: 0.85rem;
     display: block;
@@ -391,6 +391,7 @@
     line-height: 1.55;
     padding: 0 1.5rem;
     box-sizing: border-box;
+    font-size: 1.15rem;
 }
 
 

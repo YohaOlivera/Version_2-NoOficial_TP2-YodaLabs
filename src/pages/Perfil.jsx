@@ -38,12 +38,22 @@ export function Perfil() {
     <main className="contenedor-principal" style={{ minHeight: '100vh' }}>
       <SpaceBackground />
       
+      {/* CABECERA DEL PERFIL */}
+      <section className="perfil-header">
+        <span className="etiqueta-mision">EXPEDIENTE CLASIFICADO</span>
+        <h1 className="titulo-perfil-header">Archivo Jedi</h1>
+        <p className="staff-descripcion">
+          Conoce el registro detallado, afinidad en la Fuerza y stack tecnológico del tripulante seleccionado de Yoda Labs.
+        </p>
+      </section>
+
       <section 
         className={`tarjeta-flip ${isFlipped ? 'girada' : ''}`} 
         id="tarjeta-perfil" 
         style={cardStyle}
         onClick={() => setIsFlipped(!isFlipped)}
       >
+        
         <div className="tarjeta-inner">
           
           {/* LADO FRONTAL */}

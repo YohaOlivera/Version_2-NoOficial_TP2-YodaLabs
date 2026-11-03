@@ -24,7 +24,7 @@
 }
 
 .etiqueta-mision {
-    color: var(--verde-yoda);
+    color: var(--verde-fuerza);
     letter-spacing: 4px;
     font-size: 0.85rem;
     display: block;
@@ -34,14 +34,14 @@
 
 .titulo-api-principal {
     font-size: 3rem;
-    color: var(--texto-claro);
+    color: var(--verde-yoda);
     font-family: var(--fuente-especial);
-    margin-bottom: 1rem;
+    margin-bottom: 6rem;
 }
 
 .descripcion-api-principal {
     color: #a0aec0;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     line-height: 1.6;
     max-width: 800px;
     margin: 0 auto 1.5rem auto;
@@ -139,7 +139,7 @@
 }
 
 .btn-interactivo:hover:not(:disabled) {
-    background-color: #fff;
+    background-color: var(--verde-yoda);
     box-shadow: 0 0 20px rgba(57, 255, 122, 0.5);
     transform: translateY(-2px);
 }
@@ -158,7 +158,7 @@
 
 .btn-outline:hover {
     background-color: rgba(57, 255, 122, 0.15);
-    color: #fff;
+    color: #050a12;
 }
 
 /* --- PERSONAJE AL AZAR --- */
@@ -174,7 +174,7 @@
 }
 
 .azar-header h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: var(--texto-claro);
     margin-bottom: 0.5rem;
 }
@@ -182,6 +182,7 @@
 .azar-header p {
     color: #a0aec0;
     margin-bottom: 1rem;
+    font-size: 1.15rem;
 }
 
 .azar-contenedor-tarjeta {
@@ -296,7 +297,7 @@
 }
 
 .juego-header h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: var(--texto-claro);
     margin-bottom: 0.5rem;
 }

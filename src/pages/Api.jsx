@@ -19,11 +19,18 @@ export function Api() {
   const [gameOver, setGameOver] = useState(false);
   const [juegoIniciado, setJuegoIniciado] = useState(false); // Nuevo estado para iniciar el timer
 
-  useEffect(() => {
+useEffect(() => {
+    // Lista de IDs con imágenes genéricas que queremos descartar
+    const idsIgnorados = [18, 26, 28, 37, 38, 43, 47, 49, 50, 51, 55, 56, 57, 61, 64, 66, 71, 77, 79, 82, 83, 84];
+
     fetch('https://akabab.github.io/starwars-api/api/all.json')
       .then(res => res.json())
       .then(data => {
-        const personajesValidos = data.filter(p => p.image).slice(0, 40);
+        // Filtramos: debe tener imagen Y su ID no debe estar en la lista negra
+        const personajesValidos = data
+          .filter(p => p.image && !idsIgnorados.includes(p.id))
+          .slice(0, 40); // Tomamos un pool de 40 personajes limpios
+          
         setPersonajes(personajesValidos);
         iniciarJuego(personajesValidos);
       })

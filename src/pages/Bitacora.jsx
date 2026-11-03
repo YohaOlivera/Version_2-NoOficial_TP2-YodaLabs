@@ -1,20 +1,134 @@
 import { useState } from 'react';
 import { SpaceBackground } from '../components/SpaceBackground';
 import '../styles/bitacora.css';
+import registrosBitacora from '../data/bitacora.json';
 
-// Importación Bitacora JSON
-import registrosBitacora from '../data/bitacora.json'; 
+// Objeto de correspondencias: Mapea el nombre completo del UI al nombre corto del JSON
+const integrantesMap = {
+  "Leonel Díaz": "Leonel",
+  "Maximiliano Millan": "Maximiliano",
+  "Yohana Olivera": "Yohana",
+  "Melisa Solano": "Melisa",
+  "Itziar Urriola": "Itziar"
+};
 
+// Listas de opciones para los menús
+const opcionesEtiqueta = [
+  'Todas las etiquetas', 'Planificación', 'Organización', 'Diseño', 
+  'Arquitectura', 'Estructura', 'Contenido', 'Refactorización', 
+  'Corrección', 'Documentación', 'Pruebas'
+];
+const opcionesEtapa = ['Todas las etapas', 'E1 - TP1', 'E2 - TP2'];
+const opcionesIntegrante = [
+  'Todos los integrantes', 'Leonel Díaz', 'Maximiliano Millan', 
+  'Yohana Olivera', 'Melisa Solano', 'Itziar Urriola'
+];
+
+// Subcomponente: Tarjeta individual
+const TarjetaBitacora = ({ registro }) => {
+  const [expandido, setExpandido] = useState(false);
+
+  const obtenerClaseEtiqueta = (etiqueta) => {
+    const clases = {
+      'Planificación': 'badge-planificacion',
+      'Organización': 'badge-organizacion',
+      'Diseño': 'badge-diseno',
+      'Arquitectura': 'badge-arquitectura',
+      'Estructura': 'badge-estructura',
+      'Contenido': 'badge-contenido',
+      'Refactorización': 'badge-refactorizacion',
+      'Corrección': 'badge-correccion',
+      'Documentación': 'badge-documentacion',
+      'Pruebas': 'badge-pruebas'
+    };
+    return clases[etiqueta] || 'badge-default';
+  };
+
+  return (
+    <article className="tarjeta-bitacora">
+      <div className="tarjeta-bitacora-header">
+        <span className={`badge-etiqueta ${obtenerClaseEtiqueta(registro.etiqueta)}`}>
+          {registro.etiqueta}
+        </span>
+        <div className="tarjeta-meta">
+          <span className="meta-etapa">{registro.etapa}</span>
+          <span className="meta-fecha">{registro.fecha}</span>
+        </div>
+      </div>
+      
+      <div className="tarjeta-bitacora-body">
+        <p className="registro-responsables">
+          <strong>Responsables:</strong> {registro.responsables.join(' & ')}
+        </p>
+        <p className="registro-resumen">{registro.resumen}</p>
+      </div>
+
+      <div className="tarjeta-toggle" onClick={() => setExpandido(!expandido)}>
+        <span className="toggle-texto">{expandido ? 'Ocultar detalles' : 'Ver detalles'}</span>
+        <svg className={`toggle-icono ${expandido ? 'girado' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+
+      <div className={`tarjeta-expandible ${expandido ? 'abierto' : ''}`}>
+        <div className="expandible-contenido">
+          <div className="linea-divisoria-interna"></div>
+          <div className="detalle-bloque">
+            <h4>Dificultad</h4>
+            <p>{registro.dificultad}</p>
+          </div>
+          <div className="detalle-bloque">
+            <h4>Resolución</h4>
+            <p>{registro.resolucion}</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+};
+
+// Componente Principal
 export function Bitacora() {
-  const [filtroFase, setFiltroFase] = useState('Todas');
+  // Estados de los filtros
+  const [filtroEtiqueta, setFiltroEtiqueta] = useState('Todas las etiquetas');
+  const [filtroEtapa, setFiltroEtapa] = useState('Todas las etapas');
+  const [filtroIntegrante, setFiltroIntegrante] = useState('Todos los integrantes');
+  
+  // Estado único para controlar qué menú está abierto
+  const [dropdownAbierto, setDropdownAbierto] = useState(null); 
 
-  // Obtener fases únicas para los botones del filtro
-  const fasesUnicas = ['Todas', ...new Set(registrosBitacora.map(reg => reg.fase))];
+  // Lógica de apertura/cierre de menús
+  const toggleDropdown = (menuName) => {
+    setDropdownAbierto(prev => prev === menuName ? null : menuName);
+  };
 
-  // Filtrar los registros según la selección
-  const registrosFiltrados = filtroFase === 'Todas' 
-    ? registrosBitacora 
-    : registrosBitacora.filter(reg => reg.fase === filtroFase);
+  const restablecerFiltros = () => {
+    setFiltroEtiqueta('Todas las etiquetas');
+    setFiltroEtapa('Todas las etapas');
+    setFiltroIntegrante('Todos los integrantes');
+    setDropdownAbierto(null);
+  };
+
+  // Filtrado combinado (AND lógico)
+  const registrosFiltrados = registrosBitacora.filter(reg => {
+    // Filtro 1: Etiqueta
+    const coincideEtiqueta = filtroEtiqueta === 'Todas las etiquetas' || reg.etiqueta === filtroEtiqueta;
+    
+    // Filtro 2: Etapa
+    const coincideEtapa = filtroEtapa === 'Todas las etapas' || reg.etapa === filtroEtapa;
+    
+    // Filtro 3: Integrante (Mapeo a nombre corto + verificación global)
+    let coincideIntegrante = true;
+    if (filtroIntegrante !== 'Todos los integrantes') {
+      const nombreCorto = integrantesMap[filtroIntegrante];
+      coincideIntegrante = reg.responsables.includes(nombreCorto) || reg.responsables.includes("Todo el equipo");
+    }
+
+    return coincideEtiqueta && coincideEtapa && coincideIntegrante;
+  });
+
+  // Orden Cronológico Descendente
+  const registrosOrdenados = [...registrosFiltrados].sort((a, b) => b.id - a.id);
 
   return (
     <main className="contenedor-bitacora">
@@ -28,63 +142,102 @@ export function Bitacora() {
         </p>
       </section>
 
-      {/* Controles de Filtro */}
+      {/* SECCIÓN DE FILTROS PERSONALIZADOS */}
       <section className="bitacora-filtros bitacora-layer">
-        <div className="filtro-botones-contenedor">
-          {fasesUnicas.map(fase => {
-            const isActive = filtroFase === fase;
-            return (
-              <button 
-                key={fase}
-                onClick={() => setFiltroFase(fase)}
-                className={`btn-filtro-fase ${isActive ? 'activo' : ''}`}
-              >
-                {fase}
-              </button>
-            );
-          })}
+        
+        {/* Desplegable: Etiqueta */}
+        <div className="custom-select-container">
+          <div 
+            className={`custom-select-trigger ${dropdownAbierto === 'etiqueta' ? 'abierto' : ''}`}
+            onClick={() => toggleDropdown('etiqueta')}
+          >
+            {filtroEtiqueta}
+            <span className="custom-arrow"></span>
+          </div>
+          {dropdownAbierto === 'etiqueta' && (
+            <ul className="custom-select-options">
+              {opcionesEtiqueta.map(opcion => (
+                <li 
+                  key={opcion}
+                  className={filtroEtiqueta === opcion ? 'seleccionado' : ''}
+                  onClick={() => { setFiltroEtiqueta(opcion); setDropdownAbierto(null); }}
+                >
+                  {opcion}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
+
+        {/* Desplegable: Etapa */}
+        <div className="custom-select-container">
+          <div 
+            className={`custom-select-trigger ${dropdownAbierto === 'etapa' ? 'abierto' : ''}`}
+            onClick={() => toggleDropdown('etapa')}
+          >
+            {filtroEtapa}
+            <span className="custom-arrow"></span>
+          </div>
+          {dropdownAbierto === 'etapa' && (
+            <ul className="custom-select-options">
+              {opcionesEtapa.map(opcion => (
+                <li 
+                  key={opcion}
+                  className={filtroEtapa === opcion ? 'seleccionado' : ''}
+                  onClick={() => { setFiltroEtapa(opcion); setDropdownAbierto(null); }}
+                >
+                  {opcion}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* Desplegable: Integrante */}
+        <div className="custom-select-container">
+          <div 
+            className={`custom-select-trigger ${dropdownAbierto === 'integrante' ? 'abierto' : ''}`}
+            onClick={() => toggleDropdown('integrante')}
+          >
+            {filtroIntegrante}
+            <span className="custom-arrow"></span>
+          </div>
+          {dropdownAbierto === 'integrante' && (
+            <ul className="custom-select-options">
+              {opcionesIntegrante.map(opcion => (
+                <li 
+                  key={opcion}
+                  className={filtroIntegrante === opcion ? 'seleccionado' : ''}
+                  onClick={() => { setFiltroIntegrante(opcion); setDropdownAbierto(null); }}
+                >
+                  {opcion}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <button onClick={restablecerFiltros} className="btn-limpiar-filtros">
+          Limpiar Filtros
+        </button>
+
       </section>
 
-      <section className="tabla-bitacora-contenedor bitacora-layer">
-        <table className="tabla-bitacora">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Fase & Avance</th>
-              <th>Dificultades encontradas</th>
-              <th>Resolución</th>
-              <th>Responsables</th>
-            </tr>
-          </thead>
-          <tbody>
-            {registrosFiltrados.map((registro, index) => (
-              <tr key={index}>
-                <td className="celda-fecha">
-                  {/* Fecha para escritorio (dd-mm-yyyy) */}
-                  <span className="fecha-larga">{registro.fecha}</span>
-                  {/* Fecha para móvil (dd-mm-yy) usando substring para saltar el "20" */}
-                  <span className="fecha-corta">
-                    {registro.fecha.substring(0, 6)}{registro.fecha.substring(8, 10)}
-                  </span>
-                </td>
-                <td className="celda-avance">
-                  {registro.claseBadge && (
-                    <span className={`badge-fase ${registro.claseBadge}`}>{registro.fase}</span>
-                  )}
-                  <strong>{registro.avance}</strong>
-                  <p>{registro.descripcion}</p>
-                </td>
-                <td>{registro.dificultad}</td>
-                <td>{registro.resolucion}</td>
-                <td className="celda-responsables">{registro.responsables}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* CONTADOR DE RESULTADOS */}
+      <section className="bitacora-resultados bitacora-layer">
+        <p className="contador-texto">
+          Registros encontrados: <span className="contador-numero">{registrosOrdenados.length}</span>
+        </p>
+      </section>
+
+      {/* GRILLA DE TARJETAS */}
+      <section className="grilla-bitacora bitacora-layer">
+        {registrosOrdenados.map((registro) => (
+          <TarjetaBitacora key={registro.id} registro={registro} />
+        ))}
         
-        {registrosFiltrados.length === 0 && (
-          <p className="mensaje-vacio">No hay registros para esta fase.</p>
+        {registrosOrdenados.length === 0 && (
+          <p className="mensaje-vacio">No existen registros que coincidan con los filtros seleccionados.</p>
         )}
       </section>
     </main>

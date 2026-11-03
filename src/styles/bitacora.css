@@ -1,291 +1,395 @@
-/* ESTILOS ESPECÍFICOS DE LA BITÁCORA */
+/* ==========================================================================
+   ESTILOS DE LA BITÁCORA DE DESARROLLO (SISTEMA DE TARJETAS)
+   ========================================================================== */
 
-/* Contenedor principal */
 .contenedor-bitacora {
+    min-height: 100vh;
+    padding: 8rem 2rem 4rem 2rem;
+    position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 7rem 2rem 4rem 2rem;
-    width: 100%;
 }
 
 .bitacora-layer {
     position: relative;
     z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-/* CABECERA */
+/* --- CABECERA --- */
 .bitacora-header {
     text-align: center;
     margin-bottom: 3.5rem;
 }
 
 .subtitulo-seccion {
-    font-family: var(--fuente-especial);
-    color: var(--verde-yoda);
-    font-size: 0.95rem;
-    letter-spacing: 3px;
+    color: var(--verde-fuerza);
+    letter-spacing: 4px;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
     text-transform: uppercase;
-    margin-bottom: 0.75rem;
-    opacity: 0.9;
 }
 
 .titulo-bitacora {
-    font-family: var(--fuente-especial);
-    font-size: 2.8rem;
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
     color: var(--verde-yoda);
-    letter-spacing: 3px;
-    text-shadow: 0 4px 15px rgba(88, 201, 139, 0.3);
-    margin-bottom: 1rem;
+    font-family: var(--fuente-especial);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 15px rgba(57, 255, 122, 0.3);
 }
 
 .descripcion-bitacora {
-    font-family: var(--fuente-texto);
     color: var(--texto-claro);
     font-size: 1.15rem;
-    max-width: 750px;
+    max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;
-    opacity: 0.9;
-    margin-top: 5rem;
 }
 
-/* FILTROS */
+/* --- FILTROS DESPLEGABLES CUSTOM --- */
 .bitacora-filtros {
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.filtro-botones-contenedor {
+    margin-bottom: 1.5rem;
     display: flex;
-    gap: 10px;
     justify-content: center;
+    align-items: center;
+    gap: 1rem;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 10;
 }
 
-.btn-filtro-fase {
-    padding: 0.5rem 1rem;
-    background-color: rgba(9, 13, 20, 0.7);
-    color: #E2E8F0;
-    border: 1px solid var(--verde-fuerza);
-    border-radius: 8px;
+.custom-select-container {
+    position: relative;
+    min-width: 220px;
+    flex: 1;
+    max-width: 300px;
+    font-family: var(--fuente-texto);
+}
+
+.custom-select-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background-color: rgba(9, 13, 20, 0.95);
+    color: #fff;
+    border: 1px solid #4a5568;
+    border-radius: 6px;
     cursor: pointer;
-    font-family: var(--fuente-nav);
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    font-size: 0.95rem;
 }
 
-.btn-filtro-fase:hover {
-    background-color: rgba(57, 255, 122, 0.1);
-}
-
-.btn-filtro-fase.activo {
-    background-color: rgba(57, 255, 122, 0.2);
-    color: var(--verde-yoda);
+.custom-select-trigger:hover,
+.custom-select-trigger.abierto {
     border-color: var(--verde-yoda);
     box-shadow: 0 0 10px rgba(57, 255, 122, 0.2);
 }
 
-/* TABLA DE REGISTROS */
-.tabla-bitacora-contenedor {
-    border: 2px solid var(--verde-fuerza);
-    border-radius: 14px;
-    padding: 1.5rem;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    margin-bottom: 3.5rem;
-    overflow-x: auto;
+.custom-arrow {
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2339FF7A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.3s ease;
 }
 
-/* ESTILOS DE SCROLL PARA CHROME, EDGE Y SAFARI */
-.tabla-bitacora-contenedor::-webkit-scrollbar {
-    height: 10px;
+.custom-select-trigger.abierto .custom-arrow {
+    transform: rotate(180deg);
 }
 
-.tabla-bitacora-contenedor::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.tabla-bitacora-contenedor::-webkit-scrollbar-thumb {
-    background-color: var(--verde-fuerza);
-    border-radius: 999px;
-    border: 3px solid transparent;
-    background-clip: content-box;
-}
-
-.tabla-bitacora-contenedor::-webkit-scrollbar-thumb:hover {
-    background-color: var(--verde-yoda);
-}
-
-.tabla-bitacora {
+.custom-select-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    font-family: var(--fuente-texto);
-    color: var(--texto-claro);
-    min-width: 700px; 
+    background-color: #090d14;
+    border: 1px solid var(--verde-fuerza);
+    border-radius: 6px;
+    padding: 0.5rem 0; 
+    margin: 0;
+    list-style: none;
+    z-index: 100;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--verde-yoda) transparent;
 }
 
-.tabla-bitacora th {
-    background-color: rgba(9, 13, 20, 0.85);
+/* Ajustamos el padding lateral de los items para compensar el padding del contenedor */
+.custom-select-options li {
+    padding: 0.8rem 1rem;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.custom-select-options li:hover {
+    background-color: rgba(57, 255, 122, 0.15);
     color: var(--verde-yoda);
-    font-family: var(--fuente-nav);
-    font-size: 0.95rem;
-    letter-spacing: 1px;
-    text-align: left;
-    padding: 1.1rem 1.2rem;
-    border-bottom: 2px solid var(--verde-fuerza);
 }
 
-.tabla-bitacora th:first-child { border-top-left-radius: 8px; }
-.tabla-bitacora th:last-child { border-top-right-radius: 8px; }
-
-.tabla-bitacora td {
-    padding: 1.2rem;
-    border-bottom: 1px solid rgba(65, 133, 118, 0.3);
-    vertical-align: top;
-    line-height: 1.5;
-    font-size: 0.95rem;
+.custom-select-options li.seleccionado {
+    background-color: rgba(57, 255, 122, 0.25);
+    color: var(--verde-yoda);
+    font-weight: bold;
+    border-left: 3px solid var(--verde-yoda);
 }
 
-.tabla-bitacora tr:last-child td {
-    border-bottom: none;
-}
-
-.tabla-bitacora tbody tr {
-    transition: background-color 0.2s ease;
-}
-
-.tabla-bitacora tbody tr:hover {
-    background-color: rgba(88, 201, 139, 0.08);
-}
-
-/* CONTENIDO INTERNO DE CELDAS E INSIGNIAS */
-.badge-fase {
-    display: inline-block;
-    padding: 0.3rem 0.75rem;
-    border-radius: 20px;
-    font-family: var(--fuente-nav);
-    font-size: 0.75rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-    letter-spacing: 0.5px;
-    background-color: rgba(88, 201, 139, 0.15);
+.btn-limpiar-filtros {
+    background-color: transparent;
     color: var(--verde-yoda);
     border: 1px solid var(--verde-yoda);
-}
-
-.badge-fase.diseno {
-    background-color: rgba(178, 102, 255, 0.15);
-    color: #b266ff;
-    border-color: #b266ff;
-}
-
-.badge-fase.codigo {
-    background-color: rgba(0, 123, 255, 0.15);
-    color: #4da3ff;
-    border-color: #4da3ff;
-}
-
-.badge-fase.multimedia {
-    background-color: rgba(255, 153, 0, 0.15);
-    color: #ff9900;
-    border-color: #ff9900;
-}
-
-.badge-fase.entrega {
-    background-color: rgba(255, 102, 178, 0.15);
-    color: #ff66b2;
-    border-color: #ff66b2;
-}
-
-.celda-fecha {
+    padding: 0.8rem 1.2rem;
+    border-radius: 6px;
     font-family: var(--fuente-nav);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-limpiar-filtros:hover {
+    background-color: rgba(57, 255, 122, 0.15);
+    color: #fff;
+}
+
+/* --- RESULTADOS --- */
+.bitacora-resultados {
+    text-align: right;
+    margin-bottom: 2rem;
+    margin-top: 2.5rem;
+}
+
+.contador-texto {
     color: var(--texto-claro);
+    font-family: var(--fuente-roles); /* 'Plus Jakarta Sans' */
     font-size: 0.85rem;
-    white-space: nowrap;
+    letter-spacing: 2px;
 }
 
-/* Ocultar fecha corta en escritorio */
-.fecha-corta {
-    display: none;
+.contador-numero {
+    font-family: var(--fuente-especial); /* 'Orbitron' */
+    color: var(--verde-fuerza);
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin-left: 0.3rem;
+    letter-spacing: 1px;
 }
 
-.celda-avance strong {
-    display: block;
+/* --- GRILLA DE TARJETAS --- */
+.grilla-bitacora {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+}
+
+/* --- TARJETA INDIVIDUAL --- */
+.tarjeta-bitacora {
+    background-color: rgba(13, 34, 51, 0.6);
+    border: 1px solid var(--verde-sutil);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta-bitacora:hover {
+    transform: translateY(-4px);
+    border-color: var(--verde-yoda);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(57, 255, 122, 0.1);
+}
+
+.tarjeta-bitacora-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.2rem;
+    gap: 1rem;
+}
+
+.tarjeta-meta {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.meta-etapa {
     color: var(--texto-claro);
-    font-size: 1rem;
-    margin-bottom: 0.35rem;
-    font-family: var(--fuente-titulos);
+    font-family: var(--fuente-nav);
+    font-size: 0.85rem;
+    font-weight: bold;
 }
 
-.celda-avance p {
-    color: #cbd5e1;
-    font-size: 0.92rem;
+.meta-fecha {
+    color: #a0aec0;
+    font-size: 0.8rem;
 }
 
-.celda-responsables {
-    font-family: var(--fuente-roles);
-    font-weight: 500;
-    color: var(--verde-yoda);
+/* INSIGNIAS DE ETIQUETA */
+.badge-etiqueta {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-family: var(--fuente-nav);
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     white-space: nowrap;
 }
 
-/* Mensaje cuando no hay resultados en el filtro */
-.mensaje-vacio {
-    text-align: center;
-    padding: 2rem;
+/* Colores para las etiquetas */
+.badge-planificacion { background-color: #3b82f6; border: 1px solid #60a5fa; }
+.badge-organizacion { background-color: #0ea5e9; border: 1px solid #38bdf8; }
+.badge-diseno { background-color: #ec4899; border: 1px solid #f472b6; }
+.badge-arquitectura { background-color: #8b5cf6; border: 1px solid #a78bfa; }
+.badge-estructura { background-color: #d946ef; border: 1px solid #e879f9; }
+.badge-contenido { background-color: #f59e0b; border: 1px solid #fbbf24; }
+.badge-refactorizacion { background-color: #10b981; border: 1px solid #34d399; }
+.badge-correccion { background-color: #ef4444; border: 1px solid #f87171; }
+.badge-pruebas { background-color: #14b8a6; border: 1px solid #2dd4bf; }
+
+.tarjeta-bitacora-body {
+    flex-grow: 1;
+    margin-bottom: 1rem;
+}
+
+.registro-responsables {
+    font-size: 0.85rem;
+    color: var(--verde-yoda);
+    margin-bottom: 0.8rem;
+}
+
+.registro-responsables strong {
     color: #a0aec0;
-    font-style: italic;
+}
+
+.registro-resumen {
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* TOGGLE EXPANDIR */
+.tarjeta-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    color: #8b8ba7;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: var(--fuente-nav);
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.tarjeta-toggle:hover {
+    color: var(--verde-yoda);
+}
+
+.toggle-icono {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-icono.girado {
+    transform: rotate(180deg);
+}
+
+/* CONTENIDO EXPANDIBLE ANIMADO */
+.tarjeta-expandible {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-out;
+}
+
+.tarjeta-expandible.abierto {
+    grid-template-rows: 1fr;
+}
+
+.expandible-contenido {
+    overflow: hidden;
+}
+
+.linea-divisoria-interna {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(57, 255, 122, 0.2), transparent);
+    margin: 1.5rem 0 1rem 0;
+}
+
+.detalle-bloque {
+    margin-bottom: 1rem;
+}
+
+.detalle-bloque:last-child {
+    margin-bottom: 0;
+}
+
+.detalle-bloque h4 {
+    color: var(--verde-yoda);
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    font-family: var(--fuente-nav);
+    text-transform: uppercase;
+}
+
+.detalle-bloque p {
+    color: #a0aec0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* ESTADOS VACÍOS */
+.mensaje-vacio {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    background-color: rgba(13, 34, 51, 0.4);
+    border: 1px dashed var(--verde-sutil);
+    border-radius: 12px;
+    color: #a0aec0;
 }
 
 /* MEDIA QUERIES */
-
-/* Tablets y móviles en horizontal */
 @media (max-width: 900px) {
     .contenedor-bitacora {
-        padding-top: 5rem;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
-
-    .titulo-bitacora {
-        font-size: 2.2rem;
-    }
-
-    .tabla-bitacora-contenedor {
-        padding: 1rem;
-    }
-
-    .tabla-bitacora th, .tabla-bitacora td {
-        padding: 0.85rem 0.75rem;
-    }
-    
-    /* Intercambio de formato de fecha */
-    .fecha-larga {
-        display: none;
-    }
-    .fecha-corta {
-        display: inline;
+        padding-top: 6rem;
     }
 }
 
-/* Celulares */
 @media (max-width: 400px) {
     .contenedor-bitacora {
-        padding-top: 4.5rem;
         padding-left: 1rem;
         padding-right: 1rem;
     }
-
-    .titulo-bitacora {
-        font-size: 1.8rem;
+    
+    .grilla-bitacora {
+        grid-template-columns: 1fr;
     }
     
-    .descripcion-bitacora {
-        font-size: 1rem;
+    .tarjeta-bitacora-header {
+        flex-direction: column;
+        align-items: flex-start;
     }
     
-    .btn-filtro-fase {
-        font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
+    .tarjeta-meta {
+        text-align: left;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.8rem;
     }
 }

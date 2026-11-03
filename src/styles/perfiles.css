@@ -12,7 +12,7 @@
     font-size: clamp(2.2rem, 4vw, 2.8rem);
     color: var(--verde-yoda);
     font-family: var(--fuente-especial);
-    margin-bottom: 1rem;
+    margin-bottom: 6rem;
     text-shadow: 0 0 15px rgba(57, 255, 122, 0.3);
 }
 

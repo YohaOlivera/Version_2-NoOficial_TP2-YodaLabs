@@ -1,72 +1,192 @@
 [
   {
-    "fecha": "21-09-2026",
-    "fase": "Organización",
-    "avance": "Estructura base y repo compartido",
-    "descripcion": "Creación del repositorio en GitHub, acuerdo de pautas de trabajo, branch workflow y definición inicial de archivos y carpetas.",
-    "dificultad": "Disparidad de configuraciones locales y duplicación de carpetas iniciales.",
-    "resolucion": "Se acordó la arquitectura oficial: archivos HTML en la raíz, carpetas css/, js/ e img/.",
-    "responsables": "Leonel & Maximiliano",
-    "claseBadge": "organizacion"
+    "id": 1,
+    "etapa": "E1 - TP1",
+    "fecha": "21/09/26",
+    "responsables": ["Leonel", "Maximiliano"],
+    "etiqueta": "Planificación",
+    "resumen": "Acuerdo de pautas de trabajo generales y definición del branch workflow para el equipo.",
+    "dificultad": "Falta de consenso inicial sobre cómo dividir, nombrar y versionar el trabajo.",
+    "resolucion": "Establecimiento de un flujo de ramas estructurado y políticas de commits."
   },
   {
-    "fecha": "22-09-2026",
-    "fase": "Diseño",
-    "avance": "Rediseño galáctico \"Yoda Labs\"",
-    "descripcion": "Evolución estética completa: canvas espacial interactivo en JavaScript, paleta espacial y tipografías temáticas.",
-    "dificultad": "Asegurar que el canvas de partículas no bloquee los eventos en dispositivos móviles.",
-    "resolucion": "Uso de requestAnimationFrame con recálculo dinámico de dimensiones y z-index: -1 fijo.",
-    "responsables": "Itziar & Yohana",
-    "claseBadge": "diseno"
+    "id": 2,
+    "etapa": "E1 - TP1",
+    "fecha": "21/09/26",
+    "responsables": ["Leonel", "Maximiliano"],
+    "etiqueta": "Organización",
+    "resumen": "Creación del repositorio en GitHub y definición de los directorios iniciales.",
+    "dificultad": "Disparidad de configuraciones locales y duplicación de carpetas iniciales en los primeros commits.",
+    "resolucion": "Se acordó la organización oficial: archivos HTML en la raíz, carpetas css/, js/ e img/."
   },
   {
-    "fecha": "23-09-2026",
-    "fase": "Arquitectura",
-    "avance": "Limpieza de rutas y perfiles individuales",
-    "descripcion": "Eliminación de plantillas duplicadas en subcarpetas. Estandarización de perfiles en la raíz.",
-    "dificultad": "Rutas relativas rotas en enlaces y recursos CSS/JS al mover archivos de pages/ a la raíz.",
-    "resolucion": "Refactorización integral de rutas relativas directas y saneamiento del historial de Git.",
-    "responsables": "Leonel & Melisa",
-    "claseBadge": "codigo"
+    "id": 3,
+    "etapa": "E1 - TP1",
+    "fecha": "22/09/26",
+    "responsables": ["Itziar", "Yohana"],
+    "etiqueta": "Diseño",
+    "resumen": "Evolución estética completa: canvas espacial interactivo en JavaScript, paleta espacial y tipografías temáticas.",
+    "dificultad": "Asegurar que el canvas de partículas no bloquee los eventos táctiles en dispositivos móviles.",
+    "resolucion": "Uso de requestAnimationFrame con recálculo dinámico de dimensiones y z-index: -1 fijo."
   },
   {
-    "fecha": "23-09-2026",
-    "fase": "Contenido",
-    "avance": "Tarjetas Flip 3D y multimedia de integrantes",
-    "descripcion": "Implementación de tarjeta interactiva con efecto 3D flip al clic, galerías de películas y discos.",
+    "id": 4,
+    "etapa": "E1 - TP1",
+    "fecha": "23/09/26",
+    "responsables": ["Leonel", "Melisa"],
+    "etiqueta": "Estructura",
+    "resumen": "Eliminación de plantillas duplicadas en subcarpetas y estandarización de perfiles en la raíz.",
+    "dificultad": "Rutas relativas rotas en enlaces y recursos CSS/JS al mover los archivos de páginas a la raíz.",
+    "resolucion": "Refactorización integral de rutas relativas directas y saneamiento del historial de Git."
+  },
+  {
+    "id": 5,
+    "etapa": "E1 - TP1",
+    "fecha": "23/09/26",
+    "responsables": ["Maximiliano", "Itziar"],
+    "etiqueta": "Contenido",
+    "resumen": "Implementación de tarjeta interactiva con efecto 3D flip al clic, galerías de películas y discos.",
     "dificultad": "En pantallas chicas, la rotación 3D desbordaba o truncaba el texto de las dos caras de la tarjeta.",
-    "resolucion": "Ajuste responsive mediante media query adaptando el flujo a vista vertical accesible.",
-    "responsables": "Maximiliano & Itziar",
-    "claseBadge": "multimedia"
+    "resolucion": "Ajuste responsive mediante media queries adaptando el flujo a una vista vertical accesible."
   },
   {
-    "fecha": "25-09-2026",
-    "fase": "Consolidación",
-    "avance": "Integración de bitácora y QA",
-    "descripcion": "Implementación final de la bitácora con diseño unificado y revisión minuciosa del contenido.",
+    "id": 6,
+    "etapa": "E1 - TP1",
+    "fecha": "25/09/26",
+    "responsables": ["Melisa", "Yohana"],
+    "etiqueta": "Corrección",
+    "resumen": "Implementación final de la bitácora con diseño unificado y revisión minuciosa del contenido.",
     "dificultad": "La bitácora original mantenía estilos genéricos antiguos que rompían la identidad visual del proyecto.",
-    "resolucion": "Reescritura completa con css/bitacora.css, adaptación responsive y control de calidad de Melisa y Yohana.",
-    "responsables": "Melisa & Yohana",
-    "claseBadge": "entrega"
+    "resolucion": "Reescritura completa con css/bitacora.css, adaptación responsive y control de calidad visual."
   },
   {
-    "fecha": "26-09-2026",
-    "fase": "Refactorización",
-    "avance": "Audio, Carrusel JS y Mini Cards",
-    "descripcion": "Integración de controles interactivos (mini-cards) en el carrusel de staff y silenciamiento de audio en perfiles.",
-    "dificultad": "El carrusel se desincronizaba al buscar tarjetas específicas y el autoplay generaba advertencias de sonido.",
-    "resolucion": "Algoritmo de búsqueda bidireccional implementado en JS; mute forzado en páginas personales.",
-    "responsables": "Equipo completo",
-    "claseBadge": "codigo"
+    "id": 7,
+    "etapa": "E1 - TP1",
+    "fecha": "26/09/26",
+    "responsables": ["Todo el equipo"],
+    "etiqueta": "Refactorización",
+    "resumen": "Integración de controles interactivos (mini-cards) en el carrusel de staff.",
+    "dificultad": "El carrusel se desincronizaba al buscar tarjetas específicas y el autoplay de audio generaba errores en el navegador.",
+    "resolucion": "Algoritmo de búsqueda bidireccional implementado en JS y mute forzado en páginas personales."
   },
   {
-    "fecha": "22-10-2026",
-    "fase": "Migración React",
-    "avance": "Inicialización de Vite y Enrutamiento",
-    "descripcion": "Migración del proyecto estático a React utilizando Vite y react-router-dom.",
-    "dificultad": "Adaptación del canvas espacial y scripts globales al ciclo de vida de React.",
-    "resolucion": "Implementación de useEffect y useRef para aislar la manipulación del DOM.",
-    "responsables": "Yohana & Equipo",
-    "claseBadge": "codigo"
+    "id": 8,
+    "etapa": "E2 - TP2",
+    "fecha": "02/10/26",
+    "responsables": ["Todo el equipo"],
+    "etiqueta": "Arquitectura",
+    "resumen": "Migración del proyecto estático a React utilizando Vite, implementando react-router-dom.",
+    "dificultad": "Adaptación del canvas espacial y los scripts globales al estricto ciclo de vida de los componentes de React.",
+    "resolucion": "Implementación de hooks (useEffect y useRef) para aislar la manipulación directa del DOM."
+  },
+  {
+    "id": 9,
+    "etapa": "E2 - TP2",
+    "fecha": "12/10/26",
+    "responsables": ["Yohana", "Itziar"],
+    "etiqueta": "Diseño",
+    "resumen": "Personalización avanzada de UI: Scrollbar redondeado y rediseño del menú desplegable de categorías en Recursos.",
+    "dificultad": "Los navegadores bloqueaban el estilizado (hover, colores) de las etiquetas <option> dentro del select nativo.",
+    "resolucion": "Creación de un Custom Dropdown controlado por estados de React y uso de background-clip para el scroll flotante."
+  },
+  {
+    "id": 10,
+    "etapa": "E2 - TP2",
+    "fecha": "18/10/26",
+    "responsables": ["Maximiliano", "Leonel"],
+    "etiqueta": "Contenido",
+    "resumen": "Integración de fetch a la API externa de Star Wars para generar holocrones de personajes al azar.",
+    "dificultad": "El contenedor de la tarjeta sufría Layout Shift (saltos de pantalla) al renderizar la imagen y los datos.",
+    "resolucion": "Asignación de un min-height fijo compensado en desktop y flex-stretch para mantener la estabilidad visual."
+  },
+  {
+    "id": 11,
+    "etapa": "E2 - TP2",
+    "fecha": "26/10/26",
+    "responsables": ["Melisa", "Yohana"],
+    "etiqueta": "Pruebas",
+    "resumen": "Desarrollo de lógica para el mini-juego de Memoria Jedi (puntajes, emparejamientos y temporizador).",
+    "dificultad": "La API traía IDs con imágenes genéricas rotas que arruinaban visualmente el tablero del juego.",
+    "resolucion": "Implementación de un array constante (lista negra) para filtrar los personajes inválidos directamente en el useEffect."
+  },
+  {
+    "id": 12,
+    "etapa": "E2 - TP2",
+    "fecha": "03/11/26",
+    "responsables": ["Itziar", "Leonel"],
+    "etiqueta": "Refactorización",
+    "resumen": "Conversión del árbol estático de archivos a un árbol dinámico y recursivo de renderizado de componentes.",
+    "dificultad": "El código del componente Arbol.jsx se volvía inmanejable al mezclar la estructura de datos con la recursividad UI.",
+    "resolucion": "Extracción de la constante de datos hacia src/data/arbol.js, importándola para mantener el componente limpio."
+  },
+  {
+    "id": 13,
+    "etapa": "E2 - TP2",
+    "fecha": "03/11/26",
+    "responsables": ["Yohana", "Maximiliano"],
+    "etiqueta": "Estructura",
+    "resumen": "Reestructuración del esquema de datos (JSON) de la bitácora para estandarizar etiquetas y separar el historial por etapas.",
+    "dificultad": "El formato anterior limitaba la categorización visual y dificultaba el escalado del contenido de ambos TPs.",
+    "resolucion": "Normalización de propiedades (id, etapa, etiqueta, resumen) y reescritura del historial adaptándolo al nuevo formato estricto."
+  },
+  {
+    "id": 14,
+    "etapa": "E2 - TP2",
+    "fecha": "03/11/26",
+    "responsables": ["Itziar", "Yohana"],
+    "etiqueta": "Diseño",
+    "resumen": "Reemplazo de la tabla de registros por un sistema de tarjetas interactivas (cards) colapsables.",
+    "dificultad": "Lograr una animación de expansión/contracción fluida para los detalles del registro sin cálculos complejos en JS.",
+    "resolucion": "Creación del subcomponente TarjetaBitacora con estado local y uso de CSS Grid (grid-template-rows: 0fr a 1fr)."
+  },
+  {
+    "id": 15,
+    "etapa": "E2 - TP2",
+    "fecha": "03/11/26",
+    "responsables": ["Yohana", "Itziar"],
+    "etiqueta": "Refactorización",
+    "resumen": "Optimización del código de la Bitácora: ordenamiento descendente, mapeo de etiquetas mediante diccionario y reestructuración de responsables a arreglo.",
+    "dificultad": "El uso de múltiples 'if' anidados era ineficiente y el feed mostraba los registros más antiguos primero, lo que perjudicaba la experiencia de usuario (UX).",
+    "resolucion": "Implementación de un objeto de correspondencias para asignar clases (complejidad O(1)), uso del método .join(' & ') para los nombres y método .sort() para invertir el orden de renderizado."
+  },
+  {
+    "id": 16,
+    "etapa": "E2 - TP2",
+    "fecha": "03/11/26",
+    "responsables": ["Yohana", "Leonel"],
+    "etiqueta": "Refactorización",
+    "resumen": "Implementación de filtros combinados (AND lógico) mediante menús desplegables personalizados y creación del mapeo de integrantes.",
+    "dificultad": "Mostrar nombres completos en la interfaz gráfica (UI) y mantener un único menú abierto a la vez, garantizando que la lógica de búsqueda compare correctamente con los nombres abreviados del JSON sin alterar los datos originales.",
+    "resolucion": "Creación de un objeto de correspondencias (integrantesMap) para aislar la vista de los datos, implementación de un estado único (dropdownAbierto) y eliminación del max-height en CSS para solucionar el recorte visual de las etiquetas."
+  },
+  {
+    "id": 17,
+    "etapa": "E2 - TP2",
+    "fecha": "03/11/26",
+    "responsables": ["Itziar", "Melisa"],
+    "etiqueta": "Pruebas",
+    "resumen": "Pruebas de usabilidad y verificación de la experiencia de usuario (UX) en todas las secciones interactivas.",
+    "dificultad": "Garantizar que la navegación interactiva, las animaciones y el filtrado combinado (AND lógico) fueran completamente intuitivos y accesibles en pantallas pequeñas.",
+    "resolucion": "Validación exhaustiva de áreas táctiles en dispositivos móviles y comprobación del comportamiento de los estados de React al rotar la pantalla."
+  },
+  {
+    "id": 18,
+    "etapa": "E2 - TP2",
+    "fecha": "03/11/26",
+    "responsables": ["Itziar", "Melisa"],
+    "etiqueta": "Corrección",
+    "resumen": "Auditoría de diseño visual, consistencia de la interfaz (UI) y revisión de contenidos (ortografía y redacción).",
+    "dificultad": "Identificación de inconsistencias menores en tipografías secundarias y espaciados asimétricos entre las tarjetas de registros.",
+    "resolucion": "Unificación de la fuente 'Plus Jakarta Sans' para elementos de UI, ajuste final de márgenes en las hojas de estilo y corrección ortográfica de los textos descriptivos."
+  },
+  {
+    "id": 19,
+    "etapa": "E2 - TP2",
+    "fecha": "03/11/26",
+    "responsables": ["Melisa"],
+    "etiqueta": "Documentación",
+    "resumen": "Redacción y maquetación del archivo README.md para la entrega final del proyecto (TP2).",
+    "dificultad": "Estructurar la documentación cumpliendo meticulosamente con todos los criterios de evaluación del nivel 'Supera'.",
+    "resolucion": "Elaboración de un documento profesional incluyendo índice navegable, capturas de pantalla representativas, matriz de responsabilidades individuales y detalle específico del uso de IA."
   }
 ]

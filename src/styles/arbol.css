@@ -1,0 +1,187 @@
+/* ==========================================================================
+   ESTILOS DEL ÁRBOL DE COMPONENTES (ESTILO IDE/CONSOLA)
+   ========================================================================== */
+
+.contenedor-arbol {
+    min-height: 100vh;
+    padding: 8rem 2rem 4rem 2rem;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.arbol-layer {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --- CABECERA ESTÁNDAR --- */
+.arbol-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.etiqueta-mision {
+    color: var(--verde-fuerza);
+    letter-spacing: 4px;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.titulo-arbol {
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    color: var(--verde-yoda);
+    font-family: var(--fuente-especial);
+    margin-bottom: 6rem;
+    text-shadow: 0 0 15px rgba(57, 255, 122, 0.3);
+}
+
+.staff-descripcion {
+    color: #cbd5e1;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* --- VISUALIZADOR ESTILO CONSOLA/IDE --- */
+.arbol-visualizador {
+    background-color: rgba(9, 13, 20, 0.9);
+    border: 1px solid var(--verde-fuerza);
+    border-radius: 12px;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.arbol-consola-header {
+    background-color: rgba(5, 10, 18, 0.95);
+    padding: 0.8rem 1.2rem;
+    border-bottom: 1px solid rgba(57, 255, 122, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.punto { width: 12px; height: 12px; border-radius: 50%; }
+.punto.rojo { background-color: #ff5f56; }
+.punto.amarillo { background-color: #ffbd2e; }
+.punto.verde { background-color: #27c93f; }
+
+.consola-titulo {
+    color: #a0aec0;
+    font-family: var(--fuente-nav);
+    font-size: 0.85rem;
+    margin-left: 1rem;
+    letter-spacing: 1px;
+}
+
+.arbol-consola-body {
+    padding: 2.5rem;
+    overflow-x: auto;
+    font-family: monospace; /* Fuente de código */
+    /* Scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--verde-fuerza) transparent;
+}
+
+/* --- LÓGICA DE RAMAS Y LÍNEAS DEL ÁRBOL --- */
+.arbol-raiz, .nodo-rama {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nodo-rama {
+    padding-left: 2rem; /* Sangría */
+    border-left: 1px solid rgba(57, 255, 122, 0.3); /* Línea vertical verde */
+    margin-left: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.nodo-item {
+    position: relative;
+    margin-bottom: 1.2rem;
+}
+
+.nodo-contenido {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    position: relative;
+}
+
+/* Línea horizontal de conexión */
+.nodo-rama > .nodo-item > .nodo-contenido::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -2rem;
+    width: 1.5rem;
+    border-top: 1px solid rgba(57, 255, 122, 0.3);
+}
+
+/* --- INTERACTIVO Y TEXTOS --- */
+.nodo-toggle {
+    font-weight: bold;
+    color: var(--verde-yoda);
+    cursor: pointer;
+    user-select: none;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+    z-index: 2; /* Para que esté por encima de las líneas */
+    background-color: rgba(9, 13, 20, 0.9); /* Oculta la línea que pasa por detrás */
+}
+
+.nodo-toggle.oculto {
+    visibility: hidden;
+}
+
+.nodo-codigo {
+    font-size: 1.05rem;
+    font-weight: bold;
+}
+
+/* Colores sutiles para los componentes (Estilo sintaxis de código) */
+.tipo-raiz { color: #ff5f56; } /* Rojo/Naranja */
+.tipo-layout { color: #d68fd6; } /* Púrpura */
+.tipo-pagina { color: #ffbd2e; } /* Amarillo */
+.tipo-componente { color: #58c98b; } /* Verde Yoda */
+.tipo-infraestructura { color: #8fa1d6; } /* Azul pastel */
+
+/* --- INFORMACIÓN DETALLADA --- */
+.nodo-info {
+    padding-left: 2.8rem; /* Alineado bajo el texto del componente */
+    margin-top: 0.3rem;
+}
+
+.nodo-ruta {
+    color: #4a5568;
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+}
+
+.nodo-descripcion {
+    color: #a0aec0;
+    font-size: 0.9rem;
+    font-family: var(--fuente-texto); /* Volvemos a fuente normal para lectura */
+}
+
+/* ==========================================================================
+   MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 900px) {
+    .contenedor-arbol { padding-top: 6rem; }
+}
+
+@media (max-width: 400px) {
+    .contenedor-arbol { padding: 5rem 1rem 4rem 1rem; }
+    .arbol-consola-body { padding: 1.5rem 1rem; }
+    .nodo-rama { padding-left: 1.2rem; }
+    .nodo-rama > .nodo-item > .nodo-contenido::before { left: -1.2rem; width: 0.8rem; }
+    .nodo-info { padding-left: 1.5rem; }
+}

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { SpaceBackground } from '../components/SpaceBackground';
-import { arbolComponentes } from '../data/arbol'; // IMPORTAMOS LA DATA
+import { arbolComponentes } from '../data/arbol'; 
 import '../styles/arbol.css';
 
 // Componente Recursivo con Estilo IDE
 const NodoArbol = ({ nodo, nivel = 0 }) => {
-  const [abierto, setAbierto] = useState(nivel < 4); // Ajustado para que muestre más niveles abiertos al cargar
+  const [abierto, setAbierto] = useState(nivel < 4); 
   const tieneHijos = nodo.hijos && nodo.hijos.length > 0;
 
   return (

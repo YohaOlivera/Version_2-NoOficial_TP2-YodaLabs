@@ -1,6 +1,4 @@
-/* ==========================================================================
-   ESTILOS DEL ÁRBOL DE COMPONENTES (ESTILO IDE/CONSOLA)
-   ========================================================================== */
+/* ESTILOS DEL ÁRBOL DE COMPONENTES */
 
 .contenedor-arbol {
     min-height: 100vh;
@@ -82,7 +80,7 @@
 .arbol-consola-body {
     padding: 2.5rem;
     overflow-x: auto;
-    font-family: monospace; /* Fuente de código */
+    font-family: monospace; 
     /* Scrollbar */
     scrollbar-width: thin;
     scrollbar-color: var(--verde-fuerza) transparent;
@@ -96,7 +94,7 @@
 }
 
 .nodo-rama {
-    padding-left: 2rem; /* Sangría */
+    padding-left: 2rem; 
     border-left: 1px solid rgba(57, 255, 122, 0.3); /* Línea vertical verde */
     margin-left: 0.8rem;
     margin-top: 0.5rem;
@@ -133,8 +131,8 @@
     font-size: 1.1rem;
     width: 20px;
     text-align: center;
-    z-index: 2; /* Para que esté por encima de las líneas */
-    background-color: rgba(9, 13, 20, 0.9); /* Oculta la línea que pasa por detrás */
+    z-index: 2; 
+    background-color: rgba(9, 13, 20, 0.9); 
 }
 
 .nodo-toggle.oculto {
@@ -146,7 +144,7 @@
     font-weight: bold;
 }
 
-/* Colores sutiles para los componentes (Estilo sintaxis de código) */
+/* Colores para los componentes */
 .tipo-raiz { color: #ff5f56; } /* Rojo/Naranja */
 .tipo-layout { color: #d68fd6; } /* Púrpura */
 .tipo-pagina { color: #ffbd2e; } /* Amarillo */
@@ -155,7 +153,7 @@
 
 /* --- INFORMACIÓN DETALLADA --- */
 .nodo-info {
-    padding-left: 2.8rem; /* Alineado bajo el texto del componente */
+    padding-left: 2.8rem; 
     margin-top: 0.3rem;
 }
 
@@ -168,12 +166,10 @@
 .nodo-descripcion {
     color: #a0aec0;
     font-size: 0.9rem;
-    font-family: var(--fuente-texto); /* Volvemos a fuente normal para lectura */
+    font-family: var(--fuente-texto); 
 }
 
-/* ==========================================================================
-   MEDIA QUERIES
-   ========================================================================== */
+/* MEDIA QUERIES */
 @media (max-width: 900px) {
     .contenedor-arbol { padding-top: 6rem; }
 }

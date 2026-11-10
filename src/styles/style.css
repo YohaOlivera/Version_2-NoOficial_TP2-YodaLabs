@@ -912,7 +912,6 @@
 
 /* Móvil pequeño (hasta 400px) */
 @media (max-width: 400px) {
-    /* Evita que el contenedor principal genere scroll horizontal */
     .contenedor-principal,
     .contenedor-index {
         width: 100%;

@@ -124,10 +124,9 @@
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* AQUÍ ESTÁ LA MAGIA: El hover con tu color verde Yoda */
 .custom-select-options li:hover {
-    background-color: rgba(57, 255, 122, 0.15); /* Fondo verde translúcido */
-    color: var(--verde-yoda); /* Texto verde brillante */
+    background-color: rgba(57, 255, 122, 0.15); 
+    color: var(--verde-yoda);
 }
 
 .custom-select-options li.seleccionado {

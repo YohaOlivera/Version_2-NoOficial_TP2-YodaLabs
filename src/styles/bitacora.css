@@ -1,6 +1,4 @@
-/* ==========================================================================
-   ESTILOS DE LA BITÁCORA DE DESARROLLO (SISTEMA DE TARJETAS)
-   ========================================================================== */
+/* ESTILOS DE LA BITÁCORA DE DESARROLLO */
 
 .contenedor-bitacora {
     min-height: 100vh;
@@ -121,7 +119,6 @@
     scrollbar-color: var(--verde-yoda) transparent;
 }
 
-/* Ajustamos el padding lateral de los items para compensar el padding del contenedor */
 .custom-select-options li {
     padding: 0.8rem 1rem;
     color: #fff;
@@ -169,13 +166,13 @@
 
 .contador-texto {
     color: var(--texto-claro);
-    font-family: var(--fuente-roles); /* 'Plus Jakarta Sans' */
+    font-family: var(--fuente-roles); 
     font-size: 0.85rem;
     letter-spacing: 2px;
 }
 
 .contador-numero {
-    font-family: var(--fuente-especial); /* 'Orbitron' */
+    font-family: var(--fuente-especial); 
     color: var(--verde-fuerza);
     font-size: 0.95rem;
     font-weight: bold;

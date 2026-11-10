@@ -3,7 +3,7 @@ import { SpaceBackground } from '../components/SpaceBackground';
 import '../styles/bitacora.css';
 import registrosBitacora from '../data/bitacora.json';
 
-// Objeto de correspondencias: Mapea el nombre completo del UI al nombre corto del JSON
+// Mapea el nombre completo del UI al nombre corto del JSON
 const integrantesMap = {
   "Leonel Díaz": "Leonel",
   "Maximiliano Millan": "Maximiliano",

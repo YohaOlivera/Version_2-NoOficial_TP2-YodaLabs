@@ -20,7 +20,6 @@ export function StaffCarousel() {
         const gap = parseFloat(window.getComputedStyle(track).gap) || 0;
         const cardWidth = firstCard.offsetWidth + gap;
 
-        // Si la primera tarjeta salió completamente de la vista, la movemos al final
         if (Math.abs(currentX) >= cardWidth) {
           track.appendChild(firstCard);
           currentX += cardWidth;
@@ -83,7 +82,7 @@ export function StaffCarousel() {
             </div>
             
             <div className="card-botones">
-              {/* Criterio 6 y 8: Navegación interna con React Router */}
+              {/* Navegación interna con React Router */}
               <Link to={`/perfil/${int.id}`} className="btn-perfil">
                 <span className="btn-texto">Holocrón</span>
                 <span className="btn-flecha">►</span>

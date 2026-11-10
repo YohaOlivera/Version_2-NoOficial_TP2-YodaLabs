@@ -1,6 +1,4 @@
-/* ==========================================================================
-   CABECERA DEL PERFIL
-   ========================================================================== */
+/* CABECERA DEL PERFIL */
 .perfil-header {
     text-align: center;
     margin-bottom: 3.5rem;
@@ -648,7 +646,6 @@ h3 {
 
 /* --- ADAPTACIÓN DE TARJETAS PARA TABLETS/NOTEBOOKS CHICAS (901px a 1200px) --- */
 @media (min-width: 901px) and (max-width: 1200px) {
-    /* Centrar todo el contenedor de la página del perfil */
     .contenedor-principal {
         display: flex;
         flex-direction: column;
@@ -658,16 +655,14 @@ h3 {
         margin-left: 2rem;
     }
 
-    /* Achicar la tarjeta proporcionalmente sin romper su diseño interno */
     .tarjeta-flip {
         transform: scale(0.85);
         transform-origin: top center;
         margin: 0 auto;
     }
     
-    /* Achicar un poco la botonera inferior si es necesario */
     .navegacion-tripulacion {
         transform: scale(0.9);
-        margin-top: -2rem; /* Compensa el espacio vacío que deja el scale de la tarjeta */
+        margin-top: -2rem; 
     }
 }

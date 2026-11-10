@@ -15,18 +15,16 @@ export function Sidebar() {
       clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => {
         setIsMobileHidden(true);
-        setShowPerfiles(false); // Cierra los circulitos al ocultar la barra
+        setShowPerfiles(false); 
       }, 4000); 
     }
   };
 
   useEffect(() => {
-    // Si la barra está visible, arrancamos la cuenta regresiva
     if (!isMobileHidden) {
       startHideTimer();
     }
     
-    // Solo necesitamos vigilar si la pantalla cambia a modo escritorio o móvil
     const handleResize = () => {
       if (window.innerWidth > 900) {
         setIsMobileHidden(false);
@@ -41,7 +39,7 @@ export function Sidebar() {
       clearTimeout(timerRef.current);
       window.removeEventListener('resize', handleResize);
     };
-  }, [isMobileHidden]); // Se vuelve a ejecutar cada vez que cambia el estado visible/oculto
+  }, [isMobileHidden]); 
 
   return (
     <>
@@ -53,7 +51,6 @@ export function Sidebar() {
 
       <aside 
         className={`sidebar-compartida ${isMobileHidden ? 'oculta' : ''}`}
-        // Al tocar los botones o mover el mouse por encima de la barra, el tiempo se reinicia
         onMouseEnter={startHideTimer}
         onClick={startHideTimer}
       >

@@ -17,16 +17,16 @@ export function Api() {
   const [time, setTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [juegoIniciado, setJuegoIniciado] = useState(false); // Nuevo estado para iniciar el timer
+  const [juegoIniciado, setJuegoIniciado] = useState(false); 
 
 useEffect(() => {
-    // Lista de IDs con imágenes genéricas que queremos descartar
+    // Lista de IDs personajes sin imagen a descartar
     const idsIgnorados = [18, 26, 28, 37, 38, 43, 47, 49, 50, 51, 55, 56, 57, 61, 64, 66, 71, 77, 79, 82, 83, 84];
 
     fetch('https://akabab.github.io/starwars-api/api/all.json')
       .then(res => res.json())
       .then(data => {
-        // Filtramos: debe tener imagen Y su ID no debe estar en la lista negra
+        // Filtro: debe tener imagen Y su ID no debe estar en la lista negra
         const personajesValidos = data
           .filter(p => p.image && !idsIgnorados.includes(p.id))
           .slice(0, 40); // Tomamos un pool de 40 personajes limpios
@@ -37,7 +37,7 @@ useEffect(() => {
       .catch(error => console.error("Error al cargar la API:", error));
   }, []);
 
-  // Timer modificado: Solo arranca cuando 'juegoIniciado' es true (primer clic)
+  // Timer: Solo arranca cuando 'juegoIniciado' es true (primer clic)
   useEffect(() => {
     let intervalo;
     if (juegoIniciado && isPlaying && !gameOver) {
@@ -123,7 +123,7 @@ useEffect(() => {
       
       <div className="api-layer">
         
-        {/* --- SECCIÓN 1: TÍTULO Y DESCRIPCIÓN FUERA DEL RECUADRO --- */}
+        {/* --- SECCIÓN 1: TÍTULO Y DESCRIPCIÓN --- */}
         <section className="api-header-global">
           <span className="etiqueta-mision">IDENTIFICACIÓN DE MISIÓN</span>
           <h1 className="titulo-api-principal">API Pública</h1>
